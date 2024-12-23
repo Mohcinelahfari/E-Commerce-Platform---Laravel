@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::query()->get();
-        return view('products.index',compact('products'));
+        $products = Product::query()->with('category')->get();
+        $categories = Category::all();
+
+        return view('products.index',compact('products','categories'));
     }
 
     /**
@@ -27,12 +30,13 @@ class ProductController extends Controller
     public function create()
     {
         $product= new Product();
+        $categories = Category::all();
         $product->fill([
             'quantity' => 0,
             'price' => 0
         ]);
         
-        return view('products.createProduct', compact('product'));
+        return view('products.createProduct', compact('product','categories'));
     }
 
     /**
@@ -70,9 +74,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $categories = Category::all();
+
         
-        
-        return view('products.editProduct', compact('product'));
+        return view('products.editProduct', compact('product','categories'));
     }
 
     /**

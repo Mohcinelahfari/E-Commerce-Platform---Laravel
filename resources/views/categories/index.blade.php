@@ -1,5 +1,5 @@
 @extends('Layout.Layout')
-@section('title','products')
+@section('title','Categories')
 @section('content')
 
 <div class="container mt-5">
@@ -15,19 +15,19 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
         @foreach ($categories as $categorie)
         <tr>
             <td>{{$categorie->id}}</td>
             <td>{{$categorie->name}}</td>
             <td>
-            <div class="d-flex">
-                <a href="{{ route('categories.edit', $categorie->id) }}" class="btn btn-primary">Modifie</a>
-                <a href="{{ route('categories.show', $categorie) }}" class="btn btn-info">View</a>
+            <div class="d-flex justify-content-center mx-2">
+                <a href="{{ route('categories.edit', $categorie->id) }}" class="btn btn-primary  mx-2">Modifie</a>
+                <a href="{{ route('categories.show', $categorie) }}" class="btn btn-info  mx-2">View</a>
                 <form action="{{ route('categories.destroy',$categorie) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger">Supprimer</button>
+                    <button class="btn btn-danger ">Supprimer</button>
                 </form>
             </div>
             </td>

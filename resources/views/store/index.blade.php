@@ -18,6 +18,8 @@
                                 Created: {{ $product->created_at->format('F j, Y \a\t g:i A') }} ({{ $product->created_at->diffForHumans() }})
                             </small>
                         </p>
+                        <p class="card-text"><small class="text-primary">Categori : {{ $product->category?->name }}</small></p>
+
                     </div>
                 </div>
             </div>

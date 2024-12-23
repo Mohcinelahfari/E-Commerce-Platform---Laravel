@@ -3,7 +3,10 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Items List</h2>
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="text-center">Product List</h2>
+    <a href="{{ route('products.create') }}" class="btn btn-primary">Create Product</a>
+</div>
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
         <tr>
@@ -11,6 +14,7 @@
           <th scope="col">Name</th>
           <th scope="col">Description</th>
           <th scope="col">Quantity</th>
+          <th scope="col">Category</th>
           <th scope="col">Image</th>
           <th scope="col">Price ($)</th>
           <th scope="col">Actions</th>
@@ -24,6 +28,16 @@
             <td>{{$product->name}}</td>
             <td>{{$product->description}}</td>
             <td>{{$product->quantity}}</td>
+            <td>
+              @if ($product->category)
+                  <a href="{{ route('categories.show', $product->category->id) }}" class="btn btn-info">
+                      {{ $product->category->name }}
+                  </a>
+              @else
+                  <span class="text-muted">No Category</span>
+              @endif
+          </td>
+          
             <td><img src="{{ asset('storage/'.$product->image) }}" alt="Item Image" class="img-thumbnail" width="50"></td>
             <td>{{$product->price}}</td>
             <td>

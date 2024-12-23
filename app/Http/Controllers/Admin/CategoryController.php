@@ -41,6 +41,10 @@ class CategoryController extends Controller
      */
     public function store(CategorieRequest $request)
     {
+        $FormFailed = $request->validated();
+
+        Category::create($FormFailed);
+        return to_route('categories.index')->with('success','you add categories');
         dd($request);
     }
 
@@ -52,7 +56,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $products = $category->products()->get();
+        return view('categories.show', compact('products'));
     }
 
     /**
@@ -63,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('categories.editCategories', compact('category'));
     }
 
     /**
@@ -73,9 +78,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategorieRequest $request, Category $category)
     {
-        //
+        $FormFailed = $request->validated();
+
+        $category->fill($FormFailed)->save();
+        return to_route('categories.index')->with('success','you update categories');
     }
 
     /**
@@ -86,6 +94,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return to_route('categories.index')->with('success','you Delete categories');
+
     }
 }

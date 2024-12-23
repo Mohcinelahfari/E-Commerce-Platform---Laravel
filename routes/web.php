@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[StoreController::class,'index']);
+Route::get('/',[StoreController::class,'index'])->name('homepage');
 
 Route::resource('products',ProductController::class);
 Route::resource('categories', CategoryController::class);

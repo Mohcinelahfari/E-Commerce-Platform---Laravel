@@ -37,7 +37,12 @@
         <label for="price" class="form-label">Price ($)</label>
         <input type="number" class="form-control" id="price" name="price" value="{{ old('price', $product->price) }}" placeholder="Enter price" min="0" step="0.01">
       </div>
-
+      <select class="form-select" name="category_id" aria-label="Default select example">
+        <option selected>Select Categorie Name</option>
+          @foreach ($categories as $categorie)
+            <option value="{{ $categorie->id }}" @selected(old('category_id', $product->category_id) === $categorie->id )>{{$categorie->name}}</option>
+          @endforeach
+      </select>
       <!-- Submit Button -->
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Submit</button>

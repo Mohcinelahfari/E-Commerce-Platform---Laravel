@@ -11,5 +11,9 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
     
-    protected $fillable = ['name','description','quantity','image','price'];
+    protected $fillable = ['name','description','quantity','image','price','category_id'];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
