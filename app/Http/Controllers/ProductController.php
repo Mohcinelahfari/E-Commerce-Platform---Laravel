@@ -27,6 +27,11 @@ class ProductController extends Controller
     public function create()
     {
         $product= new Product();
+        $product->fill([
+            'quantity' => 0,
+            'price' => 0
+        ]);
+        
         return view('products.createProduct', compact('product'));
     }
 

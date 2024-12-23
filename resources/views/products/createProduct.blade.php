@@ -23,7 +23,7 @@
       <!-- Quantity -->
       <div class="mb-3">
         <label for="quantity" class="form-label">Quantity</label>
-        <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity') }}" placeholder="Enter quantity" min="0">
+        <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity', $product->quantity) }}" placeholder="Enter quantity" min="0">
       </div>
 
       <!-- Image -->
@@ -35,7 +35,7 @@
       <!-- Price -->
       <div class="mb-3">
         <label for="price" class="form-label">Price ($)</label>
-        <input type="number" class="form-control" id="price" name="price" value="{{ old('price') }}" placeholder="Enter price" min="0" step="0.01">
+        <input type="number" class="form-control" id="price" name="price" value="{{ old('price', $product->price) }}" placeholder="Enter price" min="0" step="0.01">
       </div>
 
       <!-- Submit Button -->
