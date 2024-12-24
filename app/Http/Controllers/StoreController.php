@@ -8,11 +8,36 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('created_at','desc')->get();
         
+        $productsQuery = Product::query()->with('category');
+        $categories = Category::with('products')->has('products')->get()->all();
+        //dd($categories);
+        $name = $request->input('name');
+        $categoriesIds = $request->input('categories');
+        //dd($categoriesIds);
+        $min = $request->input('min_price');
+        $max = $request->input('max_price');
+
         
-        return view('store.index', compact('products'));
+
+        if(!empty($name)){
+            $productsQuery->where('name', 'like',"%{$name}%");
+        }        
+
+        if(!empty($categoriesIds)){
+            $productsQuery->whereIn('category_id',$categoriesIds);
+        }
+
+        if(!empty($min)){
+            $productsQuery->where('price','>=', $min);
+        }
+
+        if(!empty($max)){
+            $productsQuery->where('price','<=',$max);
+        }
+        $products = $productsQuery->get();
+        return view('store.index', compact('products','categories'));
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -41,4 +44,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasRole($role)
+{
+    return $this->role === $role;
+}
+
+
+    public function isAdmin(){
+        return $this->hasRole('admin');
+    }
+
+    public function isEditor(){
+        return $this->hasRole('editor');
+    }
+
+
+    public function isUser(){
+        return $this->hasRole('user');
+    }
+
+
+    public function getRedirectRoute(){
+        if($this->isAdmin()){
+            return ('admin_dashboard');
+        }
+        else if($this->isEditor()){
+            return ('editor_dashboard');
+        }
+        return RouteServiceProvider::HOME;
+    }
 }
